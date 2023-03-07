@@ -11,7 +11,7 @@ Aby zainstalować projekt, wykonaj następujące kroki:
 
 1. Sklonuj repozytorium z GitHuba:
 ```bash
-git clone https://github.com/NazwaTwojegoRepozytorium.git
+git clone https://github.com/MichalNowak1994/DRF_NBP_Exchange_Rates
 ```
 2. Przejdź do katalogu projektu:
 ```bash
