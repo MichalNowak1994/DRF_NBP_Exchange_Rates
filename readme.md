@@ -74,4 +74,6 @@ Używaj jej z ostrożnością!
 
 
 # Autorzy
-Projekt został stworzony przez Michała Nowaka.
+Projekt został stworzony przez:
+
+**Michał Nowak**
