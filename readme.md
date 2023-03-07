@@ -15,7 +15,7 @@ git clone https://github.com/MichalNowak1994/DRF_NBP_Exchange_Rates
 ```
 2. Przejdź do katalogu projektu:
 ```bash
-cd nbp-exchange-rates
+cd DRF_NBP_Exchange_Rates/
 ```
 3. Zainstaluj wymagane pakiety za pomocą poetry:
 ```bash
@@ -38,12 +38,12 @@ Aby uruchomić aplikację, wykonaj poniższe kroki:
 python manage.py runserver
 ```
 2. Przejdź do przeglądarki internetowej i wpisz w pasek adresu
-```http request
+```
 http://localhost:8000/ 
 ```
 Zostaniesz przekierowany na stronę główną aplikacji.
 Jeżeli chcesz przejść bezpośrednio do API to na pasku adresu przejdź do 
-```http request
+```
 http://127.0.0.1:8000/nbp/exchange_rates/
 ```
 ## ***Endpoints***
