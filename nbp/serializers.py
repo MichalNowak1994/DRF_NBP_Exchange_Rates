@@ -5,7 +5,7 @@ from nbp.models import ExchangeRate
 
 
 class ExchangeRateSerializer(serializers.Serializer):
-    date = serializers.DateField()
+    date = serializers.DateField(read_only=True)
     rates = SerializerMethodField()
 
     class Meta:
@@ -13,6 +13,4 @@ class ExchangeRateSerializer(serializers.Serializer):
         fields = ('id', 'date', 'currency', 'code', 'mid')
 
     def get_rates(self, obj):
-        queryset = ExchangeRate.objects.filter(date=obj.date)
-        data = queryset.values('currency', 'code', 'mid')
-        return data
+        return {'currency': obj.currency, 'code': obj.code, 'mid': obj.mid}
