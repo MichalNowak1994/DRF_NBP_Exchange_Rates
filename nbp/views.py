@@ -3,6 +3,7 @@ from rest_framework.response import Response
 import requests
 from rest_framework import status, viewsets, mixins
 
+from djangoProject1 import settings
 from .models import ExchangeRate
 from .serializers import ExchangeRateSerializer
 
@@ -12,7 +13,7 @@ class ExchangeRateViewSet(viewsets.ModelViewSet, mixins.CreateModelMixin):
     serializer_class = ExchangeRateSerializer
 
     def create(self, request, *args, **kwargs):
-        response = requests.get('http://api.nbp.pl/api/exchangerates/tables/a/')
+        response = requests.get(url=settings.URL)
         if response.status_code != 200:
             return Response({'error': 'Failed to fetch exchange rates.'},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
