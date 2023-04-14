@@ -28,8 +28,7 @@ URL = config("URL")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 # Application definition
 
@@ -82,11 +81,11 @@ WSGI_APPLICATION = "djangoProject1.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydb',
+        'NAME': 'mydatabase',
         'USER': 'myuser',
         'PASSWORD': 'mypassword',
-        'HOST': 'localhost',
-        'PORT': '5450',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
