@@ -17,15 +17,19 @@ git clone https://github.com/MichalNowak1994/DRF_NBP_Exchange_Rates
 ```bash
 cd DRF_NBP_Exchange_Rates/
 ```
-3. Zainstaluj wymagane pakiety za pomocą poetry:
+3. Przejdź do odpowiedniego poetry shell
+```bash
+poetry shell
+```
+4. Zainstaluj wymagane pakiety za pomocą poetry:
 ```bash
 poetry install
 ```
-4. Zainicjuj bazę danych Postgres za pomocą docker-compose
+5. Zainicjuj bazę danych Postgres za pomocą docker-compose
 ```bash
 sudo docker-compose up -d
 ```
-5. Przeprowadź migracje bazy danych:
+6. Przeprowadź migracje bazy danych:
 ```bash
 python manage.py migrate
 ```
