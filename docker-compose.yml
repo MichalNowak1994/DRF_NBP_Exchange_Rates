@@ -5,7 +5,6 @@ services:
     container_name: "db"
     image: "postgres:14.7-alpine"
     restart: always
-
     environment:
       POSTGRES_DB: mydatabase
       POSTGRES_USER: myuser
@@ -14,9 +13,14 @@ services:
       - "5432:5432"
 
   nbp:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: michalnowak1994/drf_nbp_exchange_rates:nbp
+#    build:
+#      context: .
+#
+#      dockerfile: Dockerfile
+    environment:
+      - SECRET_KEY="django-insecure-_xp%@o=n30vu&i$a*ier3ydubc+5aw%w5d(0w2*djl$s^)r3ua"
+      - URL=http://api.nbp.pl/api/exchangerates/tables/a/
     command: >
       sh -c "PATH=.venv/bin:$$PATH &&
          python manage.py makemigrations &&

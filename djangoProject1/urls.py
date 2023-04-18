@@ -1,9 +1,8 @@
-from django.urls import include, path
-from django.contrib import admin
-from nbp import urls
+from django.urls import path, include
+from nbp.views import ExchangeRateViewSet, LatestCurrencyRateDateAPIView
 
 urlpatterns = [
-    path("nbp/", include(urls)),
-    path("admin/", admin.site.urls),
-
+    path('nbp-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('exchange_rates/', ExchangeRateViewSet.as_view({'get': 'list', 'post': 'create'}), name='exchange_rate'),
+    path('get_latest_date/', LatestCurrencyRateDateAPIView.as_view(), name='get_latest_date'),
 ]

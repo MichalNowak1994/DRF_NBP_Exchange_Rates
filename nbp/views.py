@@ -1,8 +1,7 @@
 from django.db import IntegrityError
 from rest_framework.response import Response
-import requests
+from rest_framework import generics
 from rest_framework import status, viewsets, mixins
-
 from djangoProject1 import settings
 from .models import ExchangeRate
 from .serializers import ExchangeRateSerializer
@@ -13,28 +12,39 @@ class ExchangeRateViewSet(viewsets.ModelViewSet, mixins.CreateModelMixin):
     serializer_class = ExchangeRateSerializer
 
     def create(self, request, *args, **kwargs):
-        response = requests.get(url=settings.URL)
-        if response.status_code != 200:
-            return Response({'error': 'Failed to fetch exchange rates.'},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
         try:
-            data = response.json()
+            data = request.data
         except ValueError:
-            return Response({'error': 'Invalid response from the server.'},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'error': 'Invalid input data.'},
+                            status=status.HTTP_400_BAD_REQUEST)
 
-        for rate in data[0]['rates']:
+        if 'rates' not in data or 'effectiveDate' not in data:
+            return Response({'error': 'Missing required fields in input data.'},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        for rate in data['rates']:
             try:
                 ExchangeRate.objects.create(
-                    date=data[0]['effectiveDate'],
+                    date=data['effectiveDate'],
                     currency=rate['currency'],
                     code=rate['code'],
                     mid=rate['mid']
                 )
             except IntegrityError:
-                return Response({'error': 'All datas already in database.'},
+                return Response({'error': 'All data already in database.'},
                                 status=status.HTTP_418_IM_A_TEAPOT)
 
         return Response({'message': 'Exchange rates saved successfully.'},
                         status=status.HTTP_201_CREATED)
+
+
+class LatestCurrencyRateDateAPIView(generics.GenericAPIView):
+    queryset = ExchangeRate.objects.all()
+    serializer_class = ExchangeRateSerializer
+
+    def get(self, request, *args, **kwargs):
+        try:
+            latest_date = self.queryset.latest('date').date
+            return Response({'A': latest_date})
+        except:
+            return Response({'A': "2023-04-01"})
